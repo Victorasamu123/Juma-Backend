@@ -4,6 +4,7 @@ import session, { SessionData } from "express-session";
 import cors from "cors";
 import passport from "passport";
 import MongoStore from "connect-mongo";
+import { authRouter } from "./routes/auth.route";
 
 
 interface CustomSession extends session.Session{
@@ -20,8 +21,6 @@ declare module "express-session" {
 const app = express();
 
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
 
 require("dotenv").config();
 
@@ -34,6 +33,8 @@ require("./config/passport");
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 const store = new MongoStore({
     mongoUrl:MONGODB,
@@ -50,6 +51,8 @@ app.use(session({
     },
 
 }));
+
+app.use("/auth",authRouter);
 
 app.listen(PORT , ()=>{
     console.log(`port listening at port ${PORT}`);
