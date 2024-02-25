@@ -9,20 +9,28 @@ export const SignUp = async(req:Request,res:Response,next:NextFunction)=>{
    
    const salt = saltHash.salt;
    const hash = saltHash.hash;
-
+   console.log(salt)
    const newUser = new User({
      username:req.body.username,
      email:req.body.email,
      hash:hash,
-     sait:salt,
+     salt:salt,
      adminStatus:req.body.adminStatus
    });
-
-   newUser.save().then((user)=>{
-    if(user){
-        res.send({message:"Hurray signup was successful",status:true });
-    } else{
-        res.send({message:"Signup was not successful, please try again",status:false });
+   console.log(newUser);
+  try {
+   let newUserCreated = await User.create(newUser);
+    if(newUserCreated){
+      res.send({message:"Hurray signup was successful",status:true});
     }
-   });
+  } catch (error) {
+    console.log(error);
+    if(error){
+      res.send({message:"Oops signup was not successful",status:false});
+    }
+  }
 };
+
+export const signin = async(req:Request,res:Response,next:NextFunction)=>{
+   
+}

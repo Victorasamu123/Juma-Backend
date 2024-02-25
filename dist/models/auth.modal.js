@@ -28,8 +28,8 @@ const mongoose_1 = __importStar(require("mongoose"));
 const authSchema = new mongoose_1.Schema({
     username: { required: true, type: String },
     email: { required: true, type: String, unique: true },
-    hash: String,
-    salt: String,
+    hash: { type: String },
+    salt: { type: String },
     adminStatus: { required: true, type: Boolean }
 });
 exports.User = mongoose_1.default.model("signup_collectioms", authSchema);

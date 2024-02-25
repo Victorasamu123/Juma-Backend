@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SignUp = void 0;
+exports.signin = exports.SignUp = void 0;
 const passwordUtills_1 = require("../lib/passwordUtills");
 const auth_modal_1 = require("../models/auth.modal");
 const SignUp = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -17,20 +17,29 @@ const SignUp = (req, res, next) => __awaiter(void 0, void 0, void 0, function* (
     const saltHash = yield (0, passwordUtills_1.genPassword)(req.body.password);
     const salt = saltHash.salt;
     const hash = saltHash.hash;
+    console.log(salt);
     const newUser = new auth_modal_1.User({
         username: req.body.username,
         email: req.body.email,
         hash: hash,
-        sait: salt,
+        salt: salt,
         adminStatus: req.body.adminStatus
     });
-    newUser.save().then((user) => {
-        if (user) {
+    console.log(newUser);
+    try {
+        let newUserCreated = yield auth_modal_1.User.create(newUser);
+        if (newUserCreated) {
             res.send({ message: "Hurray signup was successful", status: true });
         }
-        else {
-            res.send({ message: "Signup was not successful, please try again", status: false });
+    }
+    catch (error) {
+        console.log(error);
+        if (error) {
+            res.send({ message: "Oops signup was not successful", status: false });
         }
-    });
+    }
 });
 exports.SignUp = SignUp;
+const signin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+});
+exports.signin = signin;

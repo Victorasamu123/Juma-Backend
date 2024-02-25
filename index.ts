@@ -52,6 +52,21 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+const connection = async ()=>{
+    try {
+        const connectionToMongoose = await mongoose.connect(MONGODB as string);
+        if(connectionToMongoose){
+            console.log("connection to mongoose was sucessful");
+        }
+    } catch (error) {
+        if(error){
+            console.log(error);
+        }
+    }
+}
+
+connection();
+
 // app.use((req,res,next)=>{
 //     // console.log(req.session);
 //     // console.log(req.user);

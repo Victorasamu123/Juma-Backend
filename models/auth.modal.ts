@@ -3,8 +3,8 @@ import mongoose, { Schema } from "mongoose";
 const authSchema = new Schema({
     username:{required:true,type:String},
     email:{required:true,type:String,unique:true},
-    hash:String,
-    salt:String,
+    hash:{type:String},
+    salt:{type:String},
     adminStatus:{required:true,type:Boolean}
 });
 
