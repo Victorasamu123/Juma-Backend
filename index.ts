@@ -30,9 +30,6 @@ const SESSIONSECRET = process.env.SESSIONSECRET
 
 require("./config/passport");
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
@@ -52,7 +49,27 @@ app.use(session({
 
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+// app.use((req,res,next)=>{
+//     // console.log(req.session);
+//     // console.log(req.user);
+//     next();
+// })
+
+
 app.use("/auth",authRouter);
+
+app.get("/", (req :Request<{session: SessionData}>,res:Response)=>{
+    if(!req.session!.views){
+        req.session!.views = req.session!.views as number + 1
+    } else{
+        req.session!.views += 1;
+    };
+
+res.send(`You visited ${req.session!.views} times`);
+});
 
 app.listen(PORT , ()=>{
     console.log(`port listening at port ${PORT}`);
