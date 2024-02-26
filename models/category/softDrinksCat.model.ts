@@ -1,11 +1,11 @@
 import mongoose, { Schema } from "mongoose";
 
-const snacksCatSchema = new Schema({
+const softDrinksCatSchema = new Schema({
     productImage:{type:String,required:true},
     productName:{type:String,required:true},
     productCategory:{type:String,required:true},
     productdescription:{type:String,required:true},
-    productPrice:{type:String,required:true},
+    productPrice:{type:String,required:true}
 });
 
-export const snacksCatModel = mongoose.model("snacksCat_collections",snacksCatSchema);
+export const softDrinksCatModel = mongoose.model("softDrinksCat_collections", softDrinksCatSchema);
