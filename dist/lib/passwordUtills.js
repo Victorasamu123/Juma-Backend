@@ -34,7 +34,15 @@ function genPassword(password) {
 exports.genPassword = genPassword;
 ;
 function validPassword(password, hash, salt) {
-    let hashVerify = crypto_1.default.pbkdf2Sync(password, salt, 10000, 64, "sha512").toString("hex");
-    return hash = hashVerify;
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const newHash = crypto_1.default.pbkdf2Sync(password, salt, 10000, 64, "sha512").toString("hex");
+            return newHash === hash;
+        }
+        catch (err) {
+            console.log('Error verifying password:', err);
+            return false;
+        }
+    });
 }
 exports.validPassword = validPassword;

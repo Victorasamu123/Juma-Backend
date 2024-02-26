@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import passport from "passport";
-import { genPassword } from "../lib/passwordUtills";
+import jwt from "jsonwebtoken";
+import { genPassword, validPassword } from "../lib/passwordUtills";
 import { User } from "../models/auth.modal";
 
 export const SignUp = async(req:Request,res:Response,next:NextFunction)=>{
@@ -32,5 +33,33 @@ export const SignUp = async(req:Request,res:Response,next:NextFunction)=>{
 };
 
 export const signin = async(req:Request,res:Response,next:NextFunction)=>{
-   
-}
+   console.log(req.body);
+   let { email, password} = req.body
+   console.log(email,password);
+   let user = await User.findOne({email:email});
+   console.log(user);
+   try {
+     if(!user){
+      res.send({message:"You enter an invalid Email", status:false});
+     } else if(user){
+       const isvalid = await validPassword(password, user.hash as string , user.salt as string)
+       console.log(isvalid);
+       if(isvalid){
+         let token = jwt.sign({email},"your deepest secret",{expiresIn:"1h"});
+         res.send({message:"User Signed in Successfully",status:true,token,user});
+        }
+        else{
+         res.send({message:"You enter wrong Password",status:false});
+       }
+     }
+   } catch (error) {
+    
+   }
+};
+
+// export const signinFailure= (req:Request,res:Response,next:NextFunction)=>{
+//   res.send({message:'You entered the wrong password so signin was not successful',status:false});
+// };
+// export const signinSuccess= (req:Request,res:Response,next:NextFunction)=>{
+//   res.send({message:"Hurray signin was successful", status:true, user:req.user});
+// };

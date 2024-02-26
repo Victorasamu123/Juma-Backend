@@ -9,11 +9,11 @@ const customFields = {
     passwordField:"password",
 };
 
-const verifyCallBack = (email:string, password:string,done:any)=>{
-    User.findOne({email:email}).then((user)=>{
+const verifyCallBack =  (email:string, password:string,done:any)=>{
+    User.findOne({email:email}).then(async (user)=>{
         if(!user){return done(null,false)}
 
-        const isValid = validPassword(password, user.hash as string, user.salt as string)
+        const isValid = await validPassword(password, user.hash as string, user.salt as string)
 
         if(isValid){
             return done(null, user);

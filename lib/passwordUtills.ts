@@ -16,7 +16,12 @@ export async function genPassword(password:string): Promise<{salt:string; hash:s
     }
 };
 
-export function validPassword (password:any, hash:string, salt:string){
-    let hashVerify = crypto.pbkdf2Sync(password,salt,10000,64, "sha512").toString("hex");
-    return hash = hashVerify;
+export async function validPassword (password:any, hash:string, salt:string){
+   try{
+    const newHash =  crypto.pbkdf2Sync(password, salt, 10000, 64, "sha512").toString("hex");
+    return newHash === hash;
+   }catch(err){
+    console.log('Error verifying password:', err);
+    return false
+   }
  }
