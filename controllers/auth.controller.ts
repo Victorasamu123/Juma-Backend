@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from "express";
-import passport from "passport";
 import jwt from "jsonwebtoken";
 import { genPassword, validPassword } from "../lib/passwordUtills";
 import { User } from "../models/auth.modal";
@@ -53,13 +52,22 @@ export const signin = async(req:Request,res:Response,next:NextFunction)=>{
        }
      }
    } catch (error) {
-    
+    res.send({message:"signin not successfull",status:false});
    }
 };
 
-// export const signinFailure= (req:Request,res:Response,next:NextFunction)=>{
-//   res.send({message:'You entered the wrong password so signin was not successful',status:false});
-// };
-// export const signinSuccess= (req:Request,res:Response,next:NextFunction)=>{
-//   res.send({message:"Hurray signin was successful", status:true, user:req.user});
-// };
+export const tokenVerification = async(req:Request, res:Response,next:NextFunction)=>{
+    let token: string = req.headers.authorization?.split(" ")[0] ?? "";
+   let verified = jwt.verify(token,"your deepest secret")
+   try {
+    if(verified){
+      console.log(verified);
+      res.send({message:"Congratulations verification was successful",status:true})
+    }else{
+      res.send({message:"Oops token verification failed please signin again",status:false})
+    }
+   } catch (error) {
+    res.send({message:"Error occured",status:false})
+   }
+}
+

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signin = exports.SignUp = void 0;
+exports.tokenVerification = exports.signin = exports.SignUp = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const passwordUtills_1 = require("../lib/passwordUtills");
 const auth_modal_1 = require("../models/auth.modal");
@@ -67,12 +67,25 @@ const signin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* (
         }
     }
     catch (error) {
+        res.send({ message: "signin not successfull", status: false });
     }
 });
 exports.signin = signin;
-// export const signinFailure= (req:Request,res:Response,next:NextFunction)=>{
-//   res.send({message:'You entered the wrong password so signin was not successful',status:false});
-// };
-// export const signinSuccess= (req:Request,res:Response,next:NextFunction)=>{
-//   res.send({message:"Hurray signin was successful", status:true, user:req.user});
-// };
+const tokenVerification = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
+    let token = (_b = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[0]) !== null && _b !== void 0 ? _b : "";
+    let verified = jsonwebtoken_1.default.verify(token, "your deepest secret");
+    try {
+        if (verified) {
+            console.log(verified);
+            res.send({ message: "Congratulations verification was successful", status: true });
+        }
+        else {
+            res.send({ message: "Oops token verification failed please signin again", status: false });
+        }
+    }
+    catch (error) {
+        res.send({ message: "Error occured", status: false });
+    }
+});
+exports.tokenVerification = tokenVerification;

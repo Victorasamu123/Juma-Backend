@@ -9,3 +9,4 @@ const auth_controller_1 = require("../controllers/auth.controller");
 exports.authRouter = express_1.default.Router();
 exports.authRouter.post("/signup", auth_controller_1.SignUp);
 exports.authRouter.post("/signin", auth_controller_1.signin);
+exports.authRouter.get("/tokenverify", auth_controller_1.tokenVerification);
