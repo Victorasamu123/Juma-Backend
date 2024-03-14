@@ -44,7 +44,7 @@ export const signin = async(req:Request,res:Response,next:NextFunction)=>{
        const isvalid = await validPassword(password, user.hash as string , user.salt as string)
        console.log(isvalid);
        if(isvalid){
-         let token = jwt.sign({email},"your deepest secret",{expiresIn:"1h"});
+         let token = jwt.sign({email},"your deepest secret",{expiresIn:"2h"});
          res.send({message:"User Signed in Successfully",status:true,token,user});
         }
         else{
@@ -57,17 +57,23 @@ export const signin = async(req:Request,res:Response,next:NextFunction)=>{
 };
 
 export const tokenVerification = async(req:Request, res:Response,next:NextFunction)=>{
-    let token: string = req.headers.authorization?.split(" ")[0] ?? "";
-   let verified = jwt.verify(token,"your deepest secret")
-   try {
+    let token: string = req.headers.authorization?.split(" ")[1] ?? "";
+    try {
+     let verified = jwt.verify(token,"your deepest secret");
     if(verified){
       console.log(verified);
-      res.send({message:"Congratulations verification was successful",status:true})
+      res.send({message:"Congratulations verification was successful",status:true});
+      next();
     }else{
-      res.send({message:"Oops token verification failed please signin again",status:false})
+      res.send({message:"Oops token verification failed please signin again",status:false});
+      next()
     }
    } catch (error) {
-    res.send({message:"Error occured",status:false})
-   }
+    if (error instanceof  jwt.TokenExpiredError){
+      return res.send({message:"Token has expired",status:false})
+    } else{
+      res.send({message:"Error occured",status:false})
+    }
+  }
 }
 

@@ -58,7 +58,7 @@ const signin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* (
             const isvalid = yield (0, passwordUtills_1.validPassword)(password, user.hash, user.salt);
             console.log(isvalid);
             if (isvalid) {
-                let token = jsonwebtoken_1.default.sign({ email }, "your deepest secret", { expiresIn: "1h" });
+                let token = jsonwebtoken_1.default.sign({ email }, "your deepest secret", { expiresIn: "2h" });
                 res.send({ message: "User Signed in Successfully", status: true, token, user });
             }
             else {
@@ -73,19 +73,26 @@ const signin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* (
 exports.signin = signin;
 const tokenVerification = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
-    let token = (_b = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[0]) !== null && _b !== void 0 ? _b : "";
-    let verified = jsonwebtoken_1.default.verify(token, "your deepest secret");
+    let token = (_b = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1]) !== null && _b !== void 0 ? _b : "";
     try {
+        let verified = jsonwebtoken_1.default.verify(token, "your deepest secret");
         if (verified) {
             console.log(verified);
             res.send({ message: "Congratulations verification was successful", status: true });
+            next();
         }
         else {
             res.send({ message: "Oops token verification failed please signin again", status: false });
+            next();
         }
     }
     catch (error) {
-        res.send({ message: "Error occured", status: false });
+        if (error instanceof jsonwebtoken_1.default.TokenExpiredError) {
+            return res.send({ message: "Token has expired", status: false });
+        }
+        else {
+            res.send({ message: "Error occured", status: false });
+        }
     }
 });
 exports.tokenVerification = tokenVerification;

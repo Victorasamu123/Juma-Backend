@@ -19,6 +19,7 @@ const cors_1 = __importDefault(require("cors"));
 const passport_1 = __importDefault(require("passport"));
 const connect_mongo_1 = __importDefault(require("connect-mongo"));
 const auth_route_1 = require("./routes/auth.route");
+const addproducts_route_1 = require("./routes/addproducts.route");
 ;
 ;
 const app = (0, express_1.default)();
@@ -65,6 +66,7 @@ connection();
 //     next();
 // })
 app.use("/auth", auth_route_1.authRouter);
+app.use("/addproduct", addproducts_route_1.addProductRouter);
 app.get("/", (req, res) => {
     if (!req.session.views) {
         req.session.views = req.session.views + 1;
