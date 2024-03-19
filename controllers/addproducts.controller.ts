@@ -19,16 +19,16 @@ cloudinaryV2.config({
     secure:true
 });
 
-export const snacksCont = async (req:Request,res:Response,next:NextFunction) => {
+export const myProductUploader = async (req:Request,res:Response,next:NextFunction) => {
     console.log(req.body);
-    const mySnacksFile = req.body.productimage
+    const myProductFile = req.body.productImage
 
     try {
-        let uploaded = await cloudinaryV2.uploader.upload(mySnacksFile);
+        let uploaded = await cloudinaryV2.uploader.upload(myProductFile);
         if(uploaded){
             console.log(uploaded.secure_url);
             const myImage = uploaded.secure_url
-            let newSnackProduct = new snacksCatModel({...req.body,productimage:myImage});
+            let newSnackProduct = new snacksCatModel({...req.body,productImage:myImage});
             
         }
     } catch (error) {

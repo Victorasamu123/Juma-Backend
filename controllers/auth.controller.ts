@@ -61,18 +61,16 @@ export const tokenVerification = async(req:Request, res:Response,next:NextFuncti
     try {
      let verified = jwt.verify(token,"your deepest secret");
     if(verified){
-      console.log(verified);
       res.send({message:"Congratulations verification was successful",status:true});
-      next();
-    }else{
-      res.send({message:"Oops token verification failed please signin again",status:false});
-      next()
     }
+    next();
    } catch (error) {
     if (error instanceof  jwt.TokenExpiredError){
       return res.send({message:"Token has expired",status:false})
+    } else if(error instanceof  jwt.JsonWebTokenError){
+      res.send({message:"invalid token",status:false});
     } else{
-      res.send({message:"Error occured",status:false})
+      res.send({message:"An Error occured"});
     }
   }
 }
