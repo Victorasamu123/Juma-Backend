@@ -21,9 +21,7 @@ declare module "express-session" {
 
 const app = express();
 
-app.use(cors({
-    origin:"https://localhost:5173"
-}));
+app.use(cors());
 
 require("dotenv").config();
 

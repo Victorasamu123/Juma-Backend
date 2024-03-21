@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.tokenVerification = exports.signin = exports.SignUp = void 0;
+exports.tokenVerification = exports.signin = exports.play = exports.SignUp = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const passwordUtills_1 = require("../lib/passwordUtills");
 const auth_modal_1 = require("../models/auth.modal");
@@ -44,6 +44,10 @@ const SignUp = (req, res, next) => __awaiter(void 0, void 0, void 0, function* (
     }
 });
 exports.SignUp = SignUp;
+const play = (req, res) => {
+    res.json({ mesasag: "gjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj" });
+};
+exports.play = play;
 const signin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
     let { email, password } = req.body;

@@ -31,8 +31,9 @@ const myProductUploader = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         if (uploaded) {
             console.log(uploaded.secure_url);
             const myImage = uploaded.secure_url;
-            let newSnackProduct = new snacksCat_model_1.snacksCatModel(Object.assign(Object.assign({}, req.body), { productImage: myImage }));
+            let newProduct = new snacksCat_model_1.productCatModel(Object.assign(Object.assign({}, req.body), { productImage: myImage }));
         }
+        // let savvedProduct = 
     }
     catch (error) {
         console.log("File did not upload");
