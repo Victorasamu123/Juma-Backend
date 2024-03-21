@@ -31,6 +31,10 @@ export const SignUp = async(req:Request,res:Response,next:NextFunction)=>{
   }
 };
 
+export const play = ( req:Request,res:Response)=>{
+      res.json({mesasag:"gjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj"})
+}
+
 export const signin = async(req:Request,res:Response,next:NextFunction)=>{
    console.log(req.body);
    let { email, password} = req.body

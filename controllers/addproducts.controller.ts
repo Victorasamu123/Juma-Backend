@@ -1,7 +1,7 @@
 import { Express, Request, Response,NextFunction } from "express";
 import cloudinary from "cloudinary"
 import { saucesCondimentCatModel } from "../models/category/saucesCondimentCat.model";
-import { snacksCatModel } from "../models/category/snacksCat.model";
+import { productCatModel } from "../models/category/snacksCat.model";
 import { alcoholicBeveragesCatModel } from "../models/category/alcoholicBeveragesCat.model";
 import { bakeryItemsCatModel } from "../models/category/bakeryItems.model";
 import { desertSweetsCatModel } from "../models/category/desertSweetsCat.model";
@@ -28,9 +28,9 @@ export const myProductUploader = async (req:Request,res:Response,next:NextFuncti
         if(uploaded){
             console.log(uploaded.secure_url);
             const myImage = uploaded.secure_url
-            let newSnackProduct = new snacksCatModel({...req.body,productImage:myImage});
-            
+            let newProduct = new productCatModel({...req.body,productImage:myImage});
         }
+        // let savvedProduct = 
     } catch (error) {
         console.log("File did not upload")
         res.send({message:"upload failed",status:false})
