@@ -4,7 +4,7 @@
   "description": "A server side application for a food company.",
   "main": "index.js",
   "engines":{
-    "node":"20.x"
+    "node":"18.x"
   },
   "scripts": {
     "build": "concurrently \"rimraf dist\" \"npx tsc\"",
