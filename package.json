@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "A server side application for a food company.",
   "main": "index.js",
+  "engines":{
+    "node":"20.x"
+  },
   "scripts": {
     "build": "concurrently \"rimraf dist\" \"npx tsc\"",
     "start": "nodemon dist/index.js",
     "predev": "npm run build",
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\""
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "vercel-build":""
   },
   "author": "",
   "license": "ISC",
