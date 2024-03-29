@@ -12,7 +12,7 @@ export const addProductRouter = express.Router();
 addProductRouter.post("/newproduct",myProductUploader);
 addProductRouter.post("/newsaucesproduct",mySaucesProductUploader);
 addProductRouter.post("/newethnicproduct",myEthnicProductUploader);
-addProductRouter.post("newbakeryproduct",myBakeryProductUploader);
+addProductRouter.post("/newbakeryproduct",myBakeryProductUploader);
 addProductRouter.post("/newsoftdrinksproduct",mySoftDrinksProductUploader);
 addProductRouter.post("/newalcoholicproduct",myAlcoholicProductUploader);
 addProductRouter.post("/newdesertproduct",myDesertProductUploader);
