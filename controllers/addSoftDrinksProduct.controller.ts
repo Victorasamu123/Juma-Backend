@@ -1,6 +1,6 @@
 import { Express, Request, Response,NextFunction } from "express";
 import cloudinary from "cloudinary"
-import { snacksCatModel } from "../models/category/snacksCat.model";
+import { softDrinksCatModel } from "../models/category/softDrinksCat.model";
 
 const cloudinaryV2 = cloudinary.v2
 
@@ -13,7 +13,7 @@ cloudinaryV2.config({
     secure:true
 });
 
-export const myProductUploader = async (req:Request,res:Response,next:NextFunction) => {
+export const mySoftDrinksProductUploader = async (req:Request,res:Response,next:NextFunction) => {
     console.log(req.body);
     const myProductFile = req.body.productImage
      
@@ -22,8 +22,8 @@ export const myProductUploader = async (req:Request,res:Response,next:NextFuncti
         if(uploaded){
             console.log(uploaded.secure_url);
             const myImage = uploaded.secure_url
-            let Product = new snacksCatModel({...req.body,productImage:myImage});
-            let newProduct = await snacksCatModel.create(Product);
+            let Product = new softDrinksCatModel({...req.body,productImage:myImage});
+            let newProduct = await softDrinksCatModel.create(Product);
             if(newProduct){
                 res.send({message:"product upload was successful"});
             }else{
