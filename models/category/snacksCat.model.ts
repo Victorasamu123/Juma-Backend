@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const productCatSchema = new Schema({
+const snacksCatSchema = new Schema({
     productImage:{type:String,required:true},
     productName:{type:String,required:true},
     productCategory:{type:String,required:true},
@@ -8,4 +8,4 @@ const productCatSchema = new Schema({
     productPrice:{type:String,required:true}
 });
 
-export const productCatModel = mongoose.model("productCat_collections",productCatSchema);
+export const snacksCatModel = mongoose.model("snacksCat_collections",snacksCatSchema);
