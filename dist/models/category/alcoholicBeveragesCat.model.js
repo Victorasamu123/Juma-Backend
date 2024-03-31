@@ -30,6 +30,6 @@ const alcoholicBeveragesCatSchema = new mongoose_1.Schema({
     productName: { type: String, required: true },
     productCategory: { type: String, required: true },
     productdescription: { type: String, required: true },
-    productPrice: { type: String, required: true }
+    productPrice: { type: String, required: true },
 });
 exports.alcoholicBeveragesCatModel = mongoose_1.default.model("alcohBeverCat_collections", alcoholicBeveragesCatSchema);

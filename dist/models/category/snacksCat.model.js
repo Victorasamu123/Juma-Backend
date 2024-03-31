@@ -23,13 +23,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.productCatModel = void 0;
+exports.snacksCatModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-const productCatSchema = new mongoose_1.Schema({
+const snacksCatSchema = new mongoose_1.Schema({
     productImage: { type: String, required: true },
     productName: { type: String, required: true },
     productCategory: { type: String, required: true },
     productdescription: { type: String, required: true },
     productPrice: { type: String, required: true }
 });
-exports.productCatModel = mongoose_1.default.model("productCat_collections", productCatSchema);
+exports.snacksCatModel = mongoose_1.default.model("snacksCat_collections", snacksCatSchema);

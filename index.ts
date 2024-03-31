@@ -6,6 +6,7 @@ import passport from "passport";
 import MongoStore from "connect-mongo";
 import { authRouter } from "./routes/auth.route";
 import { addProductRouter } from "./routes/addproducts.route";
+import { getProductRouter } from "./routes/getProducts.route";
 
 
 interface CustomSession extends session.Session{
@@ -77,6 +78,7 @@ connection();
 
 app.use("/auth",authRouter);
 app.use("/addproduct",addProductRouter);
+app.use("/getproduct",getProductRouter);
 
 app.get("/", (req :Request<{session: SessionData}>,res:Response)=>{
     if(!req.session!.views){

@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.myProductUploader = void 0;
+exports.myEthnicProductUploader = void 0;
 const cloudinary_1 = __importDefault(require("cloudinary"));
-const snacksCat_model_1 = require("../models/category/snacksCat.model");
+const ethnicFood_model_1 = require("../models/category/ethnicFood.model");
 const cloudinaryV2 = cloudinary_1.default.v2;
 require("dotenv").config();
 cloudinaryV2.config({
@@ -23,7 +23,7 @@ cloudinaryV2.config({
     api_secret: process.env.API_SECRET,
     secure: true
 });
-const myProductUploader = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const myEthnicProductUploader = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
     const myProductFile = req.body.productImage;
     try {
@@ -31,13 +31,20 @@ const myProductUploader = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         if (uploaded) {
             console.log(uploaded.secure_url);
             const myImage = uploaded.secure_url;
-            let newProduct = new snacksCat_model_1.productCatModel(Object.assign(Object.assign({}, req.body), { productImage: myImage }));
+            let Product = new ethnicFood_model_1.ethnicFoodCatModel(Object.assign(Object.assign({}, req.body), { productImage: myImage }));
+            let newProduct = yield ethnicFood_model_1.ethnicFoodCatModel.create(Product);
+            if (newProduct) {
+                res.send({ message: "product upload was successful" });
+            }
+            else {
+                console.log("File did not upload");
+                res.send({ message: "upload failed", status: false });
+            }
         }
-        // let savvedProduct = 
     }
     catch (error) {
         console.log("File did not upload");
         res.send({ message: "upload failed", status: false });
     }
 });
-exports.myProductUploader = myProductUploader;
+exports.myEthnicProductUploader = myEthnicProductUploader;
