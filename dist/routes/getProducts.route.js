@@ -10,3 +10,7 @@ exports.getProductRouter = express_1.default.Router();
 exports.getProductRouter.get("/getsnacks", getProduct_controller_1.getSnackProduct);
 exports.getProductRouter.get("/getalcoholicbev", getProduct_controller_1.getAlcoholicBevProduct);
 exports.getProductRouter.get("/getbakeryitm", getProduct_controller_1.getBakeryItmProduct);
+exports.getProductRouter.get("/getdesertswt", getProduct_controller_1.getDesertSwtProduct);
+exports.getProductRouter.get("/getethnicfood", getProduct_controller_1.getEthnicFoodProduct);
+exports.getProductRouter.get("/getsaucescod", getProduct_controller_1.getSaucesCodProduct);
+exports.getProductRouter.get("/getsoftdrks", getProduct_controller_1.getSoftDrksProduct);
