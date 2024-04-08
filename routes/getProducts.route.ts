@@ -9,4 +9,4 @@ getProductRouter.get("/getbakeryitm",getBakeryItmProduct);
 getProductRouter.get("/getdesertswt",getDesertSwtProduct);
 getProductRouter.get("/getethnicfood",getEthnicFoodProduct);
 getProductRouter.get("/getsaucescod",getSaucesCodProduct);
-getProductRouter.get("/getsoftdrks",getSoftDrksProduct);
+getProductRouter.get("/getsoftdrks",getSoftDrksProduct); 
