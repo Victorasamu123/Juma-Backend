@@ -3,8 +3,9 @@ import { snacksCatModel } from "../models/category/snacksCat.model";
 
 export const deleteProduct = async (req:Request,res:Response, next:NextFunction) =>{
     console.log(req.body);
+    const {productId} = req.body
     try {
-        let deletedProduct = await snacksCatModel.findByIdAndDelete({id:req.body.productId});
+        let deletedProduct = await snacksCatModel.findByIdAndDelete({id:productId});
         if(deletedProduct){
             res.send({message:"Product has been deleted successfully", status:true});
         }else{

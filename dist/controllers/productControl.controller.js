@@ -13,8 +13,9 @@ exports.deleteProduct = void 0;
 const snacksCat_model_1 = require("../models/category/snacksCat.model");
 const deleteProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
+    const { productId } = req.body;
     try {
-        let deletedProduct = yield snacksCat_model_1.snacksCatModel.findByIdAndDelete({ id: req.body.productId });
+        let deletedProduct = yield snacksCat_model_1.snacksCatModel.findByIdAndDelete({ id: productId });
         if (deletedProduct) {
             res.send({ message: "Product has been deleted successfully", status: true });
         }
