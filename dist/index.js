@@ -21,7 +21,7 @@ const connect_mongo_1 = __importDefault(require("connect-mongo"));
 const auth_route_1 = require("./routes/auth.route");
 const addproducts_route_1 = require("./routes/addproducts.route");
 const getProducts_route_1 = require("./routes/getProducts.route");
-const productControl_1 = require("./routes/productControl");
+const productControl_route_1 = require("./routes/productControl.route");
 ;
 ;
 const app = (0, express_1.default)();
@@ -70,7 +70,7 @@ connection();
 app.use("/auth", auth_route_1.authRouter);
 app.use("/addproduct", addproducts_route_1.addProductRouter);
 app.use("/getproduct", getProducts_route_1.getProductRouter);
-app.use("/productcontrol", productControl_1.controlRouter);
+app.use("/productcontrol", productControl_route_1.controlRouter);
 app.get("/", (req, res) => {
     if (!req.session.views) {
         req.session.views = req.session.views + 1;

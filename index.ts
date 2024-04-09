@@ -7,7 +7,7 @@ import MongoStore from "connect-mongo";
 import { authRouter } from "./routes/auth.route";
 import { addProductRouter } from "./routes/addproducts.route";
 import { getProductRouter } from "./routes/getProducts.route";
-import { controlRouter } from "./routes/productControl";
+import { controlRouter } from "./routes/productControl.route";
 
 
 interface CustomSession extends session.Session{
