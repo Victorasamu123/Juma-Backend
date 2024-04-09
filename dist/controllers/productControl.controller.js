@@ -24,7 +24,7 @@ const deleteProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     }
     catch (error) {
         if (error) {
-            res.send({ message: "An error occured", status: false });
+            res.send({ message: "An error occured", status: false, error });
         }
     }
 });

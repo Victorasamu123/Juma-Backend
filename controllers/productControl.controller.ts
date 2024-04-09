@@ -12,7 +12,7 @@ export const deleteProduct = async (req:Request,res:Response, next:NextFunction)
         }
     } catch (error) {
         if(error){
-            res.send({message:"An error occured", status:false});
+            res.send({message:"An error occured", status:false,error});
         }
     }
 };
