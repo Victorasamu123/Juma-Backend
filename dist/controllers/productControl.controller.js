@@ -15,7 +15,7 @@ const deleteProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     console.log(req.body);
     const { productId } = req.body;
     try {
-        let deletedProduct = yield snacksCat_model_1.snacksCatModel.findByIdAndDelete({ id: productId });
+        let deletedProduct = yield snacksCat_model_1.snacksCatModel.findByIdAndDelete({ productId });
         if (deletedProduct) {
             res.send({ message: "Product has been deleted successfully", status: true });
         }

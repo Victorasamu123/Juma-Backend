@@ -5,7 +5,7 @@ export const deleteProduct = async (req:Request,res:Response, next:NextFunction)
     console.log(req.body);
     const {productId} = req.body
     try {
-        let deletedProduct = await snacksCatModel.findByIdAndDelete({id:productId});
+        let deletedProduct = await snacksCatModel.findByIdAndDelete(productId);
         if(deletedProduct){
             res.send({message:"Product has been deleted successfully", status:true});
         }else{
