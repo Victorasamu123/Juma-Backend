@@ -17,3 +17,25 @@ export const deleteProduct = async (req:Request,res:Response, next:NextFunction)
         }
     }
 };
+
+export const editProduct = async (req:Request,res:Response, next:NextFunction)=>{
+    console.log(req.body);
+    try {
+        let result = await snacksCatModel.findOne({_id:req.body.handleProductId});
+        if(result){
+            let product = result
+            product.productName = req.body.handleProductName;
+            product.productPrice = req.body.handleProductPrice
+            let updatedProduct = await snacksCatModel.findOneAndUpdate({_id:req.body.handleProductId});
+            if(updatedProduct){
+                res.send({message:"Product has been updated successfully", status:true});
+            }else{
+                res.send({message:"Product updated was not successful", status:false});
+            }
+        }
+    } catch (error) {
+        if(error){
+            res.send({message:"An error occured", status:false,error});
+        }
+    }
+}

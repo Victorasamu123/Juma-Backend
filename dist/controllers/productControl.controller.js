@@ -9,13 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteProduct = void 0;
+exports.editProduct = exports.deleteProduct = void 0;
 const snacksCat_model_1 = require("../models/category/snacksCat.model");
 const deleteProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
     const { productId } = req.body;
     try {
-        let deletedProduct = yield snacksCat_model_1.snacksCatModel.findByIdAndDelete({ productId });
+        let deletedProduct = yield snacksCat_model_1.snacksCatModel.findByIdAndDelete(productId);
         if (deletedProduct) {
             res.send({ message: "Product has been deleted successfully", status: true });
         }
@@ -30,3 +30,27 @@ const deleteProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.deleteProduct = deleteProduct;
+const editProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
+    try {
+        let result = yield snacksCat_model_1.snacksCatModel.findOne({ _id: req.body.handleProductId });
+        if (result) {
+            let product = result;
+            product.productName = req.body.handleProductName;
+            product.productPrice = req.body.handleProductPrice;
+            let updatedProduct = yield snacksCat_model_1.snacksCatModel.findOneAndUpdate({ _id: req.body.handleProductId });
+            if (updatedProduct) {
+                res.send({ message: "Product has been updated successfully", status: true });
+            }
+            else {
+                res.send({ message: "Product updated was not successful", status: false });
+            }
+        }
+    }
+    catch (error) {
+        if (error) {
+            res.send({ message: "An error occured", status: false, error });
+        }
+    }
+});
+exports.editProduct = editProduct;
