@@ -36,9 +36,11 @@ const editProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         let result = yield snacksCat_model_1.snacksCatModel.findOne({ _id: req.body.handleProductId });
         if (result) {
             let product = result;
+            console.log(product);
             product.productName = req.body.handleProductName;
             product.productPrice = req.body.handleProductPrice;
-            let updatedProduct = yield snacksCat_model_1.snacksCatModel.findOneAndUpdate({ _id: req.body.handleProductId });
+            console.log(product);
+            let updatedProduct = yield snacksCat_model_1.snacksCatModel.findByIdAndUpdate(req.body.handleProductId, product);
             if (updatedProduct) {
                 res.send({ message: "Product has been updated successfully", status: true });
             }
@@ -50,6 +52,7 @@ const editProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
     catch (error) {
         if (error) {
             res.send({ message: "An error occured", status: false, error });
+            console.log(error);
         }
     }
 });

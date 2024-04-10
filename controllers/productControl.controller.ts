@@ -24,9 +24,11 @@ export const editProduct = async (req:Request,res:Response, next:NextFunction)=>
         let result = await snacksCatModel.findOne({_id:req.body.handleProductId});
         if(result){
             let product = result
+            console.log(product);
             product.productName = req.body.handleProductName;
             product.productPrice = req.body.handleProductPrice
-            let updatedProduct = await snacksCatModel.findOneAndUpdate({_id:req.body.handleProductId});
+            console.log(product)
+            let updatedProduct = await snacksCatModel.findByIdAndUpdate(req.body.handleProductId,product);
             if(updatedProduct){
                 res.send({message:"Product has been updated successfully", status:true});
             }else{
@@ -36,6 +38,7 @@ export const editProduct = async (req:Request,res:Response, next:NextFunction)=>
     } catch (error) {
         if(error){
             res.send({message:"An error occured", status:false,error});
+            console.log(error);
         }
     }
-}
+};
