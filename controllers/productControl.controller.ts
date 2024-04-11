@@ -1,6 +1,7 @@
 import { Express, Request, Response, NextFunction } from "express";
 import { snacksCatModel } from "../models/category/snacksCat.model";
 import { alcoholicBeveragesCatModel } from "../models/category/alcoholicBeveragesCat.model";
+import { bakeryItemsCatModel } from "../models/category/bakeryItems.model";
 
 export const deleteProduct = async (req:Request,res:Response, next:NextFunction) =>{
     console.log(req.body);
@@ -22,6 +23,20 @@ export const deleteProduct = async (req:Request,res:Response, next:NextFunction)
         const {productId} = req.body
         try {
             let deletedProduct = await alcoholicBeveragesCatModel.findByIdAndDelete(productId);
+            if(deletedProduct){
+                res.send({message:"Product has been deleted successfully", status:true});
+            }else{
+                res.send({message:"Product has been deleted was not successfully", status:false});
+            }
+        } catch (error) {
+            if(error){
+                res.send({message:"An error occured", status:false,error});
+            }
+        }
+     }else if(req.body.productCategory === "bakeryItems"){
+        const {productId} = req.body
+        try {
+            let deletedProduct = await bakeryItemsCatModel.findByIdAndDelete(productId);
             if(deletedProduct){
                 res.send({message:"Product has been deleted successfully", status:true});
             }else{
@@ -70,6 +85,28 @@ export const editProduct = async (req:Request,res:Response, next:NextFunction)=>
                 product.productPrice = req.body.handleProductPrice
                 console.log(product)
                 let updatedProduct = await alcoholicBeveragesCatModel.findByIdAndUpdate(req.body.handleProductId,product);
+                if(updatedProduct){
+                    res.send({message:"Product has been updated successfully", status:true});
+                }else{
+                    res.send({message:"Product updated was not successful", status:false});
+                }
+            }
+        } catch (error) {
+            if(error){
+                res.send({message:"An error occured", status:false,error});
+                console.log(error);
+            }
+        }
+    }else if(req.body.handleProductCategory === "bakeryItems"){
+        try {
+            let result = await bakeryItemsCatModel.findOne({_id:req.body.handleProductId});
+            if(result){
+                let product = result
+                console.log(product);
+                product.productName = req.body.handleProductName;
+                product.productPrice = req.body.handleProductPrice
+                console.log(product)
+                let updatedProduct = await bakeryItemsCatModel.findByIdAndUpdate(req.body.handleProductId,product);
                 if(updatedProduct){
                     res.send({message:"Product has been updated successfully", status:true});
                 }else{
