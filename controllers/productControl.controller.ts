@@ -4,6 +4,7 @@ import { alcoholicBeveragesCatModel } from "../models/category/alcoholicBeverage
 import { bakeryItemsCatModel } from "../models/category/bakeryItems.model";
 import { desertSweetsCatModel } from "../models/category/desertSweetsCat.model";
 
+
 export const deleteProduct = async (req:Request,res:Response, next:NextFunction) =>{
     console.log(req.body);
      if(req.body.productCategory === "snacks"){
