@@ -14,6 +14,9 @@ const snacksCat_model_1 = require("../models/category/snacksCat.model");
 const alcoholicBeveragesCat_model_1 = require("../models/category/alcoholicBeveragesCat.model");
 const bakeryItems_model_1 = require("../models/category/bakeryItems.model");
 const desertSweetsCat_model_1 = require("../models/category/desertSweetsCat.model");
+const ethnicFood_model_1 = require("../models/category/ethnicFood.model");
+const saucesCondimentCat_model_1 = require("../models/category/saucesCondimentCat.model");
+const softDrinksCat_model_1 = require("../models/category/softDrinksCat.model");
 const deleteProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
     if (req.body.productCategory === "snacks") {
@@ -71,6 +74,57 @@ const deleteProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         const { productId } = req.body;
         try {
             let deletedProduct = yield desertSweetsCat_model_1.desertSweetsCatModel.findByIdAndDelete(productId);
+            if (deletedProduct) {
+                res.send({ message: "Product has been deleted successfully", status: true });
+            }
+            else {
+                res.send({ message: "Product has been deleted was not successfully", status: false });
+            }
+        }
+        catch (error) {
+            if (error) {
+                res.send({ message: "An error occured", status: false, error });
+            }
+        }
+    }
+    else if (req.body.productCategory === "ethnicFood") {
+        const { productId } = req.body;
+        try {
+            let deletedProduct = yield ethnicFood_model_1.ethnicFoodCatModel.findByIdAndDelete(productId);
+            if (deletedProduct) {
+                res.send({ message: "Product has been deleted successfully", status: true });
+            }
+            else {
+                res.send({ message: "Product has been deleted was not successfully", status: false });
+            }
+        }
+        catch (error) {
+            if (error) {
+                res.send({ message: "An error occured", status: false, error });
+            }
+        }
+    }
+    else if (req.body.productCategory === "saucesAndCondiments") {
+        const { productId } = req.body;
+        try {
+            let deletedProduct = yield saucesCondimentCat_model_1.saucesCondimentCatModel.findByIdAndDelete(productId);
+            if (deletedProduct) {
+                res.send({ message: "Product has been deleted successfully", status: true });
+            }
+            else {
+                res.send({ message: "Product has been deleted was not successfully", status: false });
+            }
+        }
+        catch (error) {
+            if (error) {
+                res.send({ message: "An error occured", status: false, error });
+            }
+        }
+    }
+    else if (req.body.productCategory === "softDrinks") {
+        const { productId } = req.body;
+        try {
+            let deletedProduct = yield softDrinksCat_model_1.softDrinksCatModel.findByIdAndDelete(productId);
             if (deletedProduct) {
                 res.send({ message: "Product has been deleted successfully", status: true });
             }
@@ -173,6 +227,81 @@ const editProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
                 product.productPrice = req.body.handleProductPrice;
                 console.log(product);
                 let updatedProduct = yield desertSweetsCat_model_1.desertSweetsCatModel.findByIdAndUpdate(req.body.handleProductId, product);
+                if (updatedProduct) {
+                    res.send({ message: "Product has been updated successfully", status: true });
+                }
+                else {
+                    res.send({ message: "Product updated was not successful", status: false });
+                }
+            }
+        }
+        catch (error) {
+            if (error) {
+                res.send({ message: "An error occured", status: false, error });
+                console.log(error);
+            }
+        }
+    }
+    else if (req.body.handleProductCategory === "ethnicFood") {
+        try {
+            let result = yield ethnicFood_model_1.ethnicFoodCatModel.findOne({ _id: req.body.handleProductId });
+            if (result) {
+                let product = result;
+                console.log(product);
+                product.productName = req.body.handleProductName;
+                product.productPrice = req.body.handleProductPrice;
+                console.log(product);
+                let updatedProduct = yield ethnicFood_model_1.ethnicFoodCatModel.findByIdAndUpdate(req.body.handleProductId, product);
+                if (updatedProduct) {
+                    res.send({ message: "Product has been updated successfully", status: true });
+                }
+                else {
+                    res.send({ message: "Product updated was not successful", status: false });
+                }
+            }
+        }
+        catch (error) {
+            if (error) {
+                res.send({ message: "An error occured", status: false, error });
+                console.log(error);
+            }
+        }
+    }
+    else if (req.body.handleProductCategory === "saucesAndCondiments") {
+        try {
+            let result = yield saucesCondimentCat_model_1.saucesCondimentCatModel.findOne({ _id: req.body.handleProductId });
+            if (result) {
+                let product = result;
+                console.log(product);
+                product.productName = req.body.handleProductName;
+                product.productPrice = req.body.handleProductPrice;
+                console.log(product);
+                let updatedProduct = yield saucesCondimentCat_model_1.saucesCondimentCatModel.findByIdAndUpdate(req.body.handleProductId, product);
+                if (updatedProduct) {
+                    res.send({ message: "Product has been updated successfully", status: true });
+                }
+                else {
+                    res.send({ message: "Product updated was not successful", status: false });
+                }
+            }
+        }
+        catch (error) {
+            if (error) {
+                res.send({ message: "An error occured", status: false, error });
+                console.log(error);
+            }
+        }
+    }
+    else if (req.body.handleProductCategory === "softDrinks") {
+        try {
+            let result = yield softDrinksCat_model_1.softDrinksCatModel.findOne({ _id: req.body.handleProductId });
+            if (result) {
+                let product = result;
+                console.log(product);
+                product.productName = req.body.handleProductName;
+                product.productPrice = req.body.handleProductPrice;
+                console.log(product);
+                let updatedProduct = yield softDrinksCat_model_1.softDrinksCatModel.findByIdAndUpdate(req.body.handleProductId, product);
                 if (updatedProduct) {
                     res.send({ message: "Product has been updated successfully", status: true });
                 }

@@ -29,7 +29,7 @@ const saucesCondimentCatSchema = new mongoose_1.Schema({
     productImage: { type: String, required: true },
     productName: { type: String, required: true },
     productCategory: { type: String, required: true },
-    productDescription: { type: String, required: true },
+    productdescription: { type: String, required: true },
     productPrice: { type: String, required: true }
 });
 exports.saucesCondimentCatModel = mongoose_1.default.model("saucesCondimentCat_collections", saucesCondimentCatSchema);

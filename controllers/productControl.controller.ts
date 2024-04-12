@@ -3,6 +3,9 @@ import { snacksCatModel } from "../models/category/snacksCat.model";
 import { alcoholicBeveragesCatModel } from "../models/category/alcoholicBeveragesCat.model";
 import { bakeryItemsCatModel } from "../models/category/bakeryItems.model";
 import { desertSweetsCatModel } from "../models/category/desertSweetsCat.model";
+import { ethnicFoodCatModel } from "../models/category/ethnicFood.model";
+import { saucesCondimentCatModel } from "../models/category/saucesCondimentCat.model";
+import { softDrinksCatModel } from "../models/category/softDrinksCat.model";
 
 
 export const deleteProduct = async (req:Request,res:Response, next:NextFunction) =>{
@@ -53,6 +56,48 @@ export const deleteProduct = async (req:Request,res:Response, next:NextFunction)
         const {productId} = req.body
         try {
             let deletedProduct = await desertSweetsCatModel.findByIdAndDelete(productId);
+            if(deletedProduct){
+                res.send({message:"Product has been deleted successfully", status:true});
+            }else{
+                res.send({message:"Product has been deleted was not successfully", status:false});
+            }
+        } catch (error) {
+            if(error){
+                res.send({message:"An error occured", status:false,error});
+            }
+        }
+     }else if(req.body.productCategory === "ethnicFood"){
+        const {productId} = req.body
+        try {
+            let deletedProduct = await ethnicFoodCatModel.findByIdAndDelete(productId);
+            if(deletedProduct){
+                res.send({message:"Product has been deleted successfully", status:true});
+            }else{
+                res.send({message:"Product has been deleted was not successfully", status:false});
+            }
+        } catch (error) {
+            if(error){
+                res.send({message:"An error occured", status:false,error});
+            }
+        }
+     }else if(req.body.productCategory === "saucesAndCondiments"){
+        const {productId} = req.body
+        try {
+            let deletedProduct = await saucesCondimentCatModel.findByIdAndDelete(productId);
+            if(deletedProduct){
+                res.send({message:"Product has been deleted successfully", status:true});
+            }else{
+                res.send({message:"Product has been deleted was not successfully", status:false});
+            }
+        } catch (error) {
+            if(error){
+                res.send({message:"An error occured", status:false,error});
+            }
+        }
+     }else if(req.body.productCategory === "softDrinks"){
+        const {productId} = req.body
+        try {
+            let deletedProduct = await softDrinksCatModel.findByIdAndDelete(productId);
             if(deletedProduct){
                 res.send({message:"Product has been deleted successfully", status:true});
             }else{
@@ -147,6 +192,72 @@ export const editProduct = async (req:Request,res:Response, next:NextFunction)=>
                 product.productPrice = req.body.handleProductPrice
                 console.log(product)
                 let updatedProduct = await desertSweetsCatModel.findByIdAndUpdate(req.body.handleProductId,product);
+                if(updatedProduct){
+                    res.send({message:"Product has been updated successfully", status:true});
+                }else{
+                    res.send({message:"Product updated was not successful", status:false});
+                }
+            }
+        } catch (error) {
+            if(error){
+                res.send({message:"An error occured", status:false,error});
+                console.log(error);
+            }
+        }
+    }else if(req.body.handleProductCategory === "ethnicFood"){
+        try {
+            let result = await ethnicFoodCatModel.findOne({_id:req.body.handleProductId});
+            if(result){
+                let product = result
+                console.log(product);
+                product.productName = req.body.handleProductName;
+                product.productPrice = req.body.handleProductPrice
+                console.log(product)
+                let updatedProduct = await ethnicFoodCatModel.findByIdAndUpdate(req.body.handleProductId,product);
+                if(updatedProduct){
+                    res.send({message:"Product has been updated successfully", status:true});
+                }else{
+                    res.send({message:"Product updated was not successful", status:false});
+                }
+            }
+        } catch (error) {
+            if(error){
+                res.send({message:"An error occured", status:false,error});
+                console.log(error);
+            }
+        }
+    }else if(req.body.handleProductCategory === "saucesAndCondiments"){
+        try {
+            let result = await saucesCondimentCatModel.findOne({_id:req.body.handleProductId});
+            if(result){
+                let product = result
+                console.log(product);
+                product.productName = req.body.handleProductName;
+                product.productPrice = req.body.handleProductPrice
+                console.log(product)
+                let updatedProduct = await saucesCondimentCatModel.findByIdAndUpdate(req.body.handleProductId,product);
+                if(updatedProduct){
+                    res.send({message:"Product has been updated successfully", status:true});
+                }else{
+                    res.send({message:"Product updated was not successful", status:false});
+                }
+            }
+        } catch (error) {
+            if(error){
+                res.send({message:"An error occured", status:false,error});
+                console.log(error);
+            }
+        }
+    }else if(req.body.handleProductCategory === "softDrinks"){
+        try {
+            let result = await softDrinksCatModel.findOne({_id:req.body.handleProductId});
+            if(result){
+                let product = result
+                console.log(product);
+                product.productName = req.body.handleProductName;
+                product.productPrice = req.body.handleProductPrice
+                console.log(product)
+                let updatedProduct = await softDrinksCatModel.findByIdAndUpdate(req.body.handleProductId,product);
                 if(updatedProduct){
                     res.send({message:"Product has been updated successfully", status:true});
                 }else{
