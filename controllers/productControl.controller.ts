@@ -139,7 +139,6 @@ export const editProduct = async (req:Request,res:Response, next:NextFunction)=>
         }
     }else if(req.body.handleProductCategory === "desertAndSweets"){
         try {
-
             let result = await desertSweetsCatModel.findOne({_id:req.body.handleProductId});
             if(result){
                 let product = result
@@ -153,7 +152,6 @@ export const editProduct = async (req:Request,res:Response, next:NextFunction)=>
                 }else{
                     res.send({message:"Product updated was not successful", status:false});
                 }
-
             }
         } catch (error) {
             if(error){
