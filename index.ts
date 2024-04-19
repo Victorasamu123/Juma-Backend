@@ -33,8 +33,8 @@ const SESSIONSECRET = process.env.SESSIONSECRET
 
 require("./config/passport");
 
-app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(express.json({limit:'50mb'}));
 
 const store = new MongoStore({
     mongoUrl:MONGODB,
