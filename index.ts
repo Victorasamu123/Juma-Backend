@@ -8,6 +8,7 @@ import { authRouter } from "./routes/auth.route";
 import { addProductRouter } from "./routes/addproducts.route";
 import { getProductRouter } from "./routes/getProducts.route";
 import { controlRouter } from "./routes/productControl.route";
+import { userControl } from "./routes/userControl.route";
 
 
 interface CustomSession extends session.Session{
@@ -81,6 +82,7 @@ app.use("/auth",authRouter);
 app.use("/addproduct",addProductRouter);
 app.use("/getproduct",getProductRouter);
 app.use("/productcontrol",controlRouter);
+app.use("/usercontrol",userControl);
 
 app.get("/", (req :Request<{session: SessionData}>,res:Response)=>{
     if(!req.session!.views){
