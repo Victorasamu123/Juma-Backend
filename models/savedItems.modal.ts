@@ -6,6 +6,7 @@ const savedItemsSchema = new Schema({
     productCategory:{type:String,required:true},
     productdescription:{type:String,required:true},
     productPrice:{type:String,required:true},
+    userId:{type:String,required:true}
 });
 
 export const savedItemsModal = mongoose.model("saveditems_collections",savedItemsSchema);

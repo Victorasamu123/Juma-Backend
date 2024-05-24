@@ -32,3 +32,19 @@ export const savedItems = async(req:Request,res:Response, next:NextFunction)=>{
           }
     }
 };
+
+export const getAddToCart = async(req:Request,res:Response, next:NextFunction)=>{
+    let { userId} = req.body
+     try {
+       let cartProducts = await addToCartModal.find({userId:userId});
+       if(cartProducts){
+          res.send({message:"cart sent successfully", status:true,cartProducts});
+       }else{
+        res.send({message:"No product found!!!", status:false});
+       }
+     } catch (error) {
+        if(error){
+            res.send({message:"An error occured", status:false});
+        }
+     }
+}

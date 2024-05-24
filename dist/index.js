@@ -22,6 +22,7 @@ const auth_route_1 = require("./routes/auth.route");
 const addproducts_route_1 = require("./routes/addproducts.route");
 const getProducts_route_1 = require("./routes/getProducts.route");
 const productControl_route_1 = require("./routes/productControl.route");
+const userControl_route_1 = require("./routes/userControl.route");
 ;
 ;
 const app = (0, express_1.default)();
@@ -31,8 +32,8 @@ const PORT = process.env.PORT || 3500;
 const MONGODB = process.env.MONGODB;
 const SESSIONSECRET = process.env.SESSIONSECRET;
 require("./config/passport");
-app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
+app.use(express_1.default.json({ limit: '50mb' }));
 const store = new connect_mongo_1.default({
     mongoUrl: MONGODB,
     collectionName: "sessions"
@@ -71,6 +72,7 @@ app.use("/auth", auth_route_1.authRouter);
 app.use("/addproduct", addproducts_route_1.addProductRouter);
 app.use("/getproduct", getProducts_route_1.getProductRouter);
 app.use("/productcontrol", productControl_route_1.controlRouter);
+app.use("/usercontrol", userControl_route_1.userControl);
 app.get("/", (req, res) => {
     if (!req.session.views) {
         req.session.views = req.session.views + 1;
