@@ -12,7 +12,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validPassword = exports.genPassword = void 0;
+exports.genPassword = genPassword;
+exports.validPassword = validPassword;
 const crypto_1 = __importDefault(require("crypto"));
 function genPassword(password) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -31,7 +32,6 @@ function genPassword(password) {
         }
     });
 }
-exports.genPassword = genPassword;
 ;
 function validPassword(password, hash, salt) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -45,4 +45,3 @@ function validPassword(password, hash, salt) {
         }
     });
 }
-exports.validPassword = validPassword;
