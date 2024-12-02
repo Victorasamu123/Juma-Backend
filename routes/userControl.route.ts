@@ -5,4 +5,4 @@ export const userControl = express.Router();
 
 userControl.post("/addtocart",addToCart);
 userControl.post("/saveditems",savedItems);
-userControl.get("/getcartproduct",getAddToCart)
+userControl.post("/getcartproduct",getAddToCart);
