@@ -28,11 +28,20 @@ export const addToCart = async(req:Request, res:Response,next:NextFunction)=>{
 
 export const savedItems = async(req:Request,res:Response, next:NextFunction)=>{
     console.log(req.body);
-    let newProductToSavedItems = new savedItemsModal(req.body);
+    // let newProductToSavedItems = new savedItemsModal(req.body);
+    // let productSaved = await savedItemsModal.create(newProductToSavedItems);
     try {
-        let productSaved = await savedItemsModal.create(newProductToSavedItems);
-        if (productSaved) {
-            res.send({message:"Product has been saved",status:true});
+        let productInSaved = await savedItemsModal.findOne({ productName : req.body.productName });
+        if (productInSaved) {
+            res.send({message:"Product has been saved already",status:false});
+        }else {
+            let newProductToSavedItems = new savedItemsModal(req.body);
+            let productSaved = await savedItemsModal.create(newProductToSavedItems);
+            if (productSaved) {
+                res.send({message:"Product was added to saved successfully",status:true});
+            }else {
+                res.send({message:"Product has not been saved",status:false});
+            }
         }
     } catch (error) {
         if(error){
