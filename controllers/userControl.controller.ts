@@ -4,11 +4,18 @@ import { savedItemsModal } from "../models/savedItems.modal";
 
 export const addToCart = async(req:Request, res:Response,next:NextFunction)=>{
     console.log(req.body);
-    let newProductToCart = new addToCartModal(req.body);
     try {
-        let productAdded = await addToCartModal.create(newProductToCart);
-        if(productAdded){
-            res.send({message:"Product was added to cart",status:true});
+      let productInCart = await addToCartModal.findOne({ productName : req.body.productName});
+        if(productInCart){
+            res.send({message:"Product is already in cart",status:false});
+        } else {
+            let newProductToCart = new addToCartModal(req.body);
+            let productAdded = await addToCartModal.create(newProductToCart);
+            if (productAdded){
+                res.send({message:"Product was added to cart successfully",status:true});
+            } else{
+                res.send({message:"Product was not added to cart",status:false});
+            }
         }
     } catch (error) {
         if(error){
