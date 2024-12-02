@@ -25,6 +25,7 @@ export const addToCart = async(req:Request, res:Response,next:NextFunction)=>{
 };
 
 
+
 export const savedItems = async(req:Request,res:Response, next:NextFunction)=>{
     console.log(req.body);
     let newProductToSavedItems = new savedItemsModal(req.body);
@@ -36,7 +37,7 @@ export const savedItems = async(req:Request,res:Response, next:NextFunction)=>{
     } catch (error) {
         if(error){
             res.send({message:"product was not saved",status:false});
-          }
+        }
     }
 };
 
@@ -54,4 +55,20 @@ export const getAddToCart = async(req:Request,res:Response, next:NextFunction)=>
             res.send({message:"An error occured", status:false});
         }
      }
+}
+        
+export const deleteAllCart = async(req:Request, res:Response,next:NextFunction)=>{
+            console.log(req.body);
+            try {
+                let deleteAll = await addToCartModal.deleteMany({userId:req.body.userId});
+                if (deleteAll) {
+                    res.send({message: "All items deleted", status:true});
+                } else {
+                    res.send({message:"Items was not deleted", status:false});
+                }
+            } catch (error) {
+                if(error){
+                    res.send({message:"An error occured while deleting",status:false});
+                  }
+            }
 }
