@@ -28,8 +28,6 @@ export const addToCart = async(req:Request, res:Response,next:NextFunction)=>{
 
 export const savedItems = async(req:Request,res:Response, next:NextFunction)=>{
     console.log(req.body);
-    // let newProductToSavedItems = new savedItemsModal(req.body);
-    // let productSaved = await savedItemsModal.create(newProductToSavedItems);
     try {
         let productInSaved = await savedItemsModal.findOne({ productName : req.body.productName });
         if (productInSaved) {
@@ -65,6 +63,22 @@ export const getAddToCart = async(req:Request,res:Response, next:NextFunction)=>
         }
      }
 }
+
+export const getSavedItems = async( req:Request,res:Response, next:NextFunction)=>{
+    let { userId } = req.body
+    try {
+        let savedProducts = await savedItemsModal.find({userId:userId});
+        if(savedProducts){
+            res.send({message:"saved items sent successfully", status:true,savedProducts});
+        }else {
+            res.send({message:"No product found!!!", status:false});
+        }
+    } catch(error) {
+        if(error){
+            res.send({message:"An error occured", status:false});
+        }
+    }
+}
         
 export const deleteAllCart = async(req:Request, res:Response,next:NextFunction)=>{
             console.log(req.body);
@@ -80,4 +94,52 @@ export const deleteAllCart = async(req:Request, res:Response,next:NextFunction)=
                     res.send({message:"An error occured while deleting",status:false});
                   }
             }
+};
+
+export const deleteAllSavedItems = async(req:Request, res:Response,next:NextFunction)=>{
+      console.log(req.body);
+      try {
+        let deleteAll = await savedItemsModal.deleteMany({userId:req.body.userId});
+        if (deleteAll) {
+            res.send({message: "All items deleted", status:true});
+        } else {
+            res.send({message:"Items was not deleted", status:false});
+        }
+      } catch (error) {
+        if(error){
+            res.send({message:"An error occured while deleting",status:false});
+          }
+      }
+};
+
+export const deleteOneProductInCart = async (req:Request, res:Response, next:NextFunction)=>{
+    console.log(req.body);
+    try {
+        let deleteOneProduct = await addToCartModal.deleteOne({productName : req.body.productName });
+        if (deleteOneProduct) {
+            res.send({message: "Product was deleted successfully", status:true});
+        } else {
+            res.send({message:"product was not deleted", status:false});
+        }
+    } catch (error) {
+        if(error){
+            res.send({message:"An error occured while deleting",status:false});
+          }
+      }
+}
+
+export const deleteOneProductInSavedItems = async (req:Request, res:Response, next:NextFunction)=>{
+    console.log(req.body);
+    try {
+        let deleteOneProduct = await savedItemsModal.deleteOne({ productName : req.body.productName });
+        if (deleteOneProduct) {
+            res.send({message: "Product was deleted successfully", status:true});
+        } else {
+            res.send({message:"product was not deleted", status:false});
+        }
+    } catch (error) {
+        if(error){
+            res.send({message:"An error occured while deleting",status:false});
+          }
+    }
 }
