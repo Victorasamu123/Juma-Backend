@@ -115,7 +115,7 @@ export const deleteAllSavedItems = async(req:Request, res:Response,next:NextFunc
 export const deleteOneProductInCart = async (req:Request, res:Response, next:NextFunction)=>{
     console.log(req.body);
     try {
-        let deleteOneProduct = await addToCartModal.deleteOne({productName : req.body.productName });
+        let deleteOneProduct = await addToCartModal.findByIdAndDelete(req.body.Id)
         if (deleteOneProduct) {
             res.send({message: "Product was deleted successfully", status:true});
         } else {
@@ -131,7 +131,7 @@ export const deleteOneProductInCart = async (req:Request, res:Response, next:Nex
 export const deleteOneProductInSavedItems = async (req:Request, res:Response, next:NextFunction)=>{
     console.log(req.body);
     try {
-        let deleteOneProduct = await savedItemsModal.deleteOne({ productName : req.body.productName });
+        let deleteOneProduct = await savedItemsModal.findByIdAndDelete(req.body.Id);
         if (deleteOneProduct) {
             res.send({message: "Product was deleted successfully", status:true});
         } else {
