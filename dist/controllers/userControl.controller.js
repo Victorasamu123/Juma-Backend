@@ -173,7 +173,7 @@ exports.deleteOneProductInSavedItems = deleteOneProductInSavedItems;
 const updateQuantityOfProduct = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
     try {
-        let updatedQuantityOfProduct = yield addToCart_model_1.addToCartModal.findByIdAndUpdate(req.body.Id, { quantityOfProduct: req.body.quantityOfProduct });
+        let updatedQuantityOfProduct = yield addToCart_model_1.addToCartModal.findByIdAndUpdate(req.body.Id, { quantityOfProduct: req.body.newQuantityOfProduct });
         if (updatedQuantityOfProduct) {
             res.send({ message: "update successful", status: true });
         }
