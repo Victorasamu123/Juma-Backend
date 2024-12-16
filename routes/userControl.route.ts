@@ -1,5 +1,5 @@
 import express from "express"
-import { addToCart, deleteAllCart, deleteAllSavedItems, deleteOneProductInCart, deleteOneProductInSavedItems, getAddToCart, getSavedItems, savedItems } from "../controllers/userControl.controller";
+import { addToCart, deleteAllCart, deleteAllSavedItems, deleteOneProductInCart, deleteOneProductInSavedItems, getAddToCart, getSavedItems, savedItems, updateQuantityOfProduct } from "../controllers/userControl.controller";
 
 export const userControl = express.Router();
 
@@ -11,3 +11,4 @@ userControl.post("/deleteallitems",deleteAllCart);
 userControl.post("/deleteallsaveditems",deleteAllSavedItems);
 userControl.post("/deleteoneproductincart",deleteOneProductInCart);
 userControl.post("/deleteoneproductinsaveditems", deleteOneProductInSavedItems);
+userControl.post("/updatequantityofproduct",updateQuantityOfProduct);

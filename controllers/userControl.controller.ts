@@ -144,3 +144,19 @@ export const deleteOneProductInSavedItems = async (req:Request, res:Response, ne
           }
     }
 }
+
+export const updateQuantityOfProduct = async (req:Request, res:Response, next:NextFunction)=>{
+    console.log(req.body);
+    try {
+        let updatedQuantityOfProduct = await addToCartModal.findByIdAndUpdate(req.body.Id,{ quantityOfProduct:req.body.quantityOfProduct});
+        if(updatedQuantityOfProduct){
+            res.send({message: "update successful", status:true});
+        } else {
+            res.send({message:"product was not updated", status:false});
+        }
+    } catch (error) {
+        if(error){
+            res.send({message:"An error occured while updating",status:false});
+          }   
+    }
+}

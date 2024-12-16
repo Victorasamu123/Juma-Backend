@@ -41,6 +41,7 @@ const addToCartSchema = new mongoose_1.Schema({
     productCategory: { type: String, required: true },
     productdescription: { type: String, required: true },
     productPrice: { type: String, required: true },
-    userId: { type: String, required: true }
+    userId: { type: String, required: true },
+    quantityOfProduct: { type: String, required: true }
 });
 exports.addToCartModal = mongoose_1.default.model("addtocart_collections", addToCartSchema);
