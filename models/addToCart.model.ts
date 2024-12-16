@@ -6,7 +6,8 @@ const addToCartSchema = new Schema({
     productCategory:{type:String,required:true},
     productdescription:{type:String,required:true},
     productPrice:{type:String,required:true},
-    userId:{type:String,required:true}
+    userId:{type:String,required:true},
+    quantityOfProduct:{type:String,required:true}
 });
 
 export const addToCartModal = mongoose.model("addtocart_collections",addToCartSchema);

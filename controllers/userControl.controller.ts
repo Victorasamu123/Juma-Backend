@@ -2,6 +2,7 @@ import { Request, Response,NextFunction } from "express";
 import { addToCartModal } from "../models/addToCart.model";
 import { savedItemsModal } from "../models/savedItems.modal";
 
+
 export const addToCart = async(req:Request, res:Response,next:NextFunction)=>{
     console.log(req.body);
     try {
