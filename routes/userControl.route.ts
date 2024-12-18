@@ -11,4 +11,4 @@ userControl.post("/deleteallitems",deleteAllCart);
 userControl.post("/deleteallsaveditems",deleteAllSavedItems);
 userControl.post("/deleteoneproductincart",deleteOneProductInCart);
 userControl.post("/deleteoneproductinsaveditems", deleteOneProductInSavedItems);
-userControl.post("/updatequantityofproduct",updateQuantityOfProduct);
+userControl.patch("/updatequantityofproduct",updateQuantityOfProduct);
