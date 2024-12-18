@@ -148,7 +148,7 @@ export const deleteOneProductInSavedItems = async (req:Request, res:Response, ne
 export const updateQuantityOfProduct = async (req:Request, res:Response, next:NextFunction)=>{
     console.log(req.body);
     try {
-        let updatedQuantityOfProduct = await addToCartModal.findByIdAndUpdate(req.body.Id,{ quantityOfProduct:req.body.newQuantityOfProduct});
+        let updatedQuantityOfProduct = await addToCartModal.findByIdAndUpdate(req.body.Id,{ quantityOfProduct:req.body.newQuantityOfProduct},{new:true});
         if(updatedQuantityOfProduct){
             console.log(updatedQuantityOfProduct,res);
             res.send({message: "update successful", status:true});
