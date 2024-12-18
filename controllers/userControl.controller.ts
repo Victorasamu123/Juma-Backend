@@ -150,6 +150,7 @@ export const updateQuantityOfProduct = async (req:Request, res:Response, next:Ne
     try {
         let updatedQuantityOfProduct = await addToCartModal.findByIdAndUpdate(req.body.Id,{ quantityOfProduct:req.body.newQuantityOfProduct});
         if(updatedQuantityOfProduct){
+            console.log(updatedQuantityOfProduct,res);
             res.send({message: "update successful", status:true});
         } else {
             res.send({message:"product was not updated", status:false});
@@ -157,6 +158,7 @@ export const updateQuantityOfProduct = async (req:Request, res:Response, next:Ne
     } catch (error) {
         if(error){
             res.send({message:"An error occured while updating",status:false});
+            console.log(error);
           }   
     }
 }
